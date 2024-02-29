@@ -1,9 +1,9 @@
 import React from "react";
 import { cats, cart } from "./data";
 
-function Product({ totalQuantity, setTotalQuantity }) {
+function Product({ setTotalQuantity, showCart, setShowCart }) {
   function handleClick(catName) {
-    // add 1 to the quantity of the specific cat
+    // Add 1 to the quantity of the specific cat
     cart[catName] += 1;
     console.log(`${catName}'s quantity is now ${cart[catName]}`);
 

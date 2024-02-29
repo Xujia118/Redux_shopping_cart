@@ -13,23 +13,30 @@ function App() {
 
   useEffect(() => {
     function calculateTotalQuantity() {
-      Object.values(cart).reduce((acc, curr) => acc + curr, 0);
+      Object.values(cart).reduce((acc, cur) => acc + cur, 0);
     }
     setTotalQuantity(calculateTotalQuantity());
   }, []);
+
+  const [showCart, setShowCart] = useState(false);
 
   return (
     <>
       <header>
         <h1>Catland</h1>
-        <ViewCartButton totalQuantity={totalQuantity} />
+        <ViewCartButton
+          totalQuantity={totalQuantity}
+          showCart={showCart}
+          setShowCart={setShowCart}
+        />
       </header>
       <main>
         <Product
-          totalQuantity={totalQuantity}
           setTotalQuantity={setTotalQuantity}
+          showCart={showCart}
+          setShowCart={setShowCart}
         />
-        <Cart />
+        <Cart showCart={showCart} setShowCart={setShowCart} />
       </main>
     </>
   );
