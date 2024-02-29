@@ -41,6 +41,10 @@ header h1 {
     cursor: pointer;
 }
 
+.button-view-cart.invisible {
+    display: none;
+}
+
 .cats {
     padding: 1rem;
 

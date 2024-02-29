@@ -19,6 +19,7 @@ function App() {
   }, []);
 
   const [showCart, setShowCart] = useState(false);
+  const [viewCartButton, setViewCartButton] = useState(true);
 
   return (
     <>
@@ -28,6 +29,8 @@ function App() {
           totalQuantity={totalQuantity}
           showCart={showCart}
           setShowCart={setShowCart}
+          viewCartButton={viewCartButton}
+          setViewCartButton={setViewCartButton}
         />
       </header>
       <main>
@@ -36,7 +39,12 @@ function App() {
           showCart={showCart}
           setShowCart={setShowCart}
         />
-        <Cart showCart={showCart} setShowCart={setShowCart} />
+        <Cart
+          showCart={showCart}
+          setShowCart={setShowCart}
+          viewCartButton={viewCartButton}
+          setViewCartButton={setViewCartButton}
+        />
       </main>
     </>
   );

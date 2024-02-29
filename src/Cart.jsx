@@ -1,14 +1,25 @@
 import React from "react";
 import { cats, cart } from "./data";
 
-function Cart({ showCart, setShowCart }) {
+function Cart({ showCart, setShowCart, viewCartButton, setViewCartButton }) {
+  function handleHideButton() {
+    setShowCart(!showCart);
+    setViewCartButton(!viewCartButton);
+  }
+
+  function handleCheckOutButton() {
+    setShowCart(!showCart);
+    setViewCartButton(!viewCartButton);
+    // TODO: clear the cart and ready the bill
+  }
+
   return (
-    <div className={`cart-container ${showCart ? 'visible' : ''}`}>
+    <div className={`cart-container ${showCart ? "visible" : ""}`}>
       <div className="cart-top">
         <button
           className="button-hide-cart"
           data-target="product"
-          onClick={() => setShowCart(!showCart)}
+          onClick={handleHideButton}
         >
           Hide Cart
         </button>
@@ -35,7 +46,7 @@ function Cart({ showCart, setShowCart }) {
         <button
           className="button-checkout"
           data-target="product"
-          onClick={() => setShowCart(!showCart)}
+          onClick={handleCheckOutButton}
         >
           Check Out
         </button>
