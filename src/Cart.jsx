@@ -7,6 +7,20 @@ function Cart({ showCart, setShowCart, viewCartButton, setViewCartButton }) {
     setViewCartButton(!viewCartButton);
   }
 
+  function calculateSubquantity(catName, index) {
+    const subquantity = cart[catName];
+    const price = cats[index].price;
+    return (subquantity * price).toFixed(2);
+  }
+
+  function calculateTotalPrice() {
+    let total = 0;
+    cats.forEach((cat, index) => {
+      total += cart[cat.name] * cat.price;
+    });
+    return total.toFixed(2);
+  }
+
   function handleCheckOutButton() {
     setShowCart(!showCart);
     setViewCartButton(!viewCartButton);
@@ -27,22 +41,23 @@ function Cart({ showCart, setShowCart, viewCartButton, setViewCartButton }) {
       <hr></hr>
 
       <ul className="cart">
-        {cats.map((cat) => (
+        {cats.map((cat, index) => (
           <li className="item" key={cat.name}>
             <img className="item-image" src={cat.image} alt={cat.detail} />
             <span>{cat.name}</span>
             <span className="item-price">{cat.price}</span>
             <span className="quantity-control">
               <button className="button-decrease">-</button>
-              {cart[cat]}
+              <span>{cart[cat.name]}</span>
               <button className="button-increase">+</button>
+              {calculateSubquantity(cat.name, index)}
             </span>
           </li>
         ))}
       </ul>
       <hr />
       <div className="cart-bottom">
-        <span className="total">Total: Fake Num</span>
+        <span className="total">Total: {calculateTotalPrice()}</span>
         <button
           className="button-checkout"
           data-target="product"

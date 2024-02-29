@@ -5,7 +5,6 @@ function Product({ setTotalQuantity, showCart, setShowCart }) {
   function handleClick(catName) {
     // Add 1 to the quantity of the specific cat
     cart[catName] += 1;
-    console.log(`${catName}'s quantity is now ${cart[catName]}`);
 
     // Update total quantity
     const updatedTotalQuantity = Object.values(cart).reduce(
