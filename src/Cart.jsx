@@ -8,6 +8,8 @@ function Cart({
   setShowCart,
   viewCartButton,
   setViewCartButton,
+  totalQuantity,
+  setTotalQuantity,
 }) {
   // Hide cart button
   function handleHideButton() {
@@ -65,42 +67,56 @@ function Cart({
       </div>
       <hr></hr>
 
-      <ul className="cart">
-        {cats.map((cat, index) => (
-          <li className="item" key={cat.name}>
-            <img className="item-image" src={cat.image} alt={cat.detail} />
-            <span>{cat.name}</span>
-            <span className="item-price">{cat.price}</span>
-            <span className="quantity-control">
-              <button
-                className="button-decrease"
-                onClick={() => decreaseButton(cat.name)}
-              >
-                -
-              </button>
-              <span>{cart[cat.name]}</span>
-              <button
-                className="button-increase"
-                onClick={() => increaseButton(cat.name)}
-              >
-                +
-              </button>
-              {calculateSubquantity(cat.name, index)}
-            </span>
-          </li>
-        ))}
-      </ul>
-      <hr />
-      <div className="cart-bottom">
-        <span className="total">Total: {calculateTotalPrice()}</span>
-        <button
-          className="button-checkout"
-          data-target="product"
-          onClick={handleCheckOutButton}
-        >
-          Check Out
-        </button>
-      </div>
+      {totalQuantity ? (
+        <>
+          <ul className="cart">
+            {cats.map((cat, index) =>
+              cart[cat.name] ? (
+                <li className="item" key={cat.name}>
+                  <img
+                    className="item-image"
+                    src={cat.image}
+                    alt={cat.detail}
+                  />
+                  <span>{cat.name}</span>
+                  <span className="item-price">{cat.price}</span>
+                  <span className="quantity-control">
+                    <button
+                      className="button-decrease"
+                      onClick={() => decreaseButton(cat.name)}
+                    >
+                      -
+                    </button>
+                    <span>{cart[cat.name]}</span>
+                    <button
+                      className="button-increase"
+                      onClick={() => increaseButton(cat.name)}
+                    >
+                      +
+                    </button>
+                    {calculateSubquantity(cat.name, index)}
+                  </span>
+                </li>
+              ) : (
+                ""
+              )
+            )}
+          </ul>
+          <hr />
+          <div className="cart-bottom">
+            <span className="total">Total: {calculateTotalPrice()}</span>
+            <button
+              className="button-checkout"
+              data-target="product"
+              onClick={handleCheckOutButton}
+            >
+              Check Out
+            </button>
+          </div>
+        </>
+      ) : (
+        <p>Cart is empty</p>
+      )}
     </div>
   );
 }
