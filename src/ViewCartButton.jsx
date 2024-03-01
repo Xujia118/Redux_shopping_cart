@@ -9,8 +9,9 @@ function ViewCartButton({
 }) {
   function handleShowCartButton() {
     setShowCart(!showCart);
-    setViewCartButton(!ViewCartButton);
+    setViewCartButton(!viewCartButton);
   }
+  
   return (
     <div className="view-cart-button-container">
       <button

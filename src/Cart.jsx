@@ -10,7 +10,6 @@ function Cart({
   viewCartButton,
   setViewCartButton,
   totalQuantity,
-  setTotalQuantity,
 }) {
   // Hide cart button
   function handleHideButton() {

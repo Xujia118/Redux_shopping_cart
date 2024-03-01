@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { cats, initialCart } from "./data";
+import { initialCart } from "./data";
 
 import ViewCartButton from "./ViewCartButton";
 import Product from "./Product";
@@ -41,9 +41,7 @@ function App() {
       </header>
       <main>
         <Product
-          cart={cart}
           setCart={setCart}
-          totalQuantity={setTotalQuantity}
           setTotalQuantity={setTotalQuantity}
         />
         <Cart
@@ -55,7 +53,6 @@ function App() {
           viewCartButton={viewCartButton}
           setViewCartButton={setViewCartButton}
           totalQuantity={totalQuantity}
-          setTotalQuantity={setTotalQuantity}
         />
       </main>
     </>
