@@ -46,7 +46,7 @@ function App() {
           totalQuantity={setTotalQuantity}
           setTotalQuantity={setTotalQuantity}
         />
-        {/* <Cart
+        <Cart
           cart={cart}
           setCart={setCart}
           showCart={showCart}
@@ -55,7 +55,7 @@ function App() {
           setViewCartButton={setViewCartButton}
           totalQuantity={totalQuantity}
           setTotalQuantity={setTotalQuantity}
-        /> */}
+        />
       </main>
     </>
   );

@@ -1,10 +1,34 @@
 import React from "react";
 import { cats, initialCart } from "./data";
 
-function Cart({ showCart, setShowCart, viewCartButton, setViewCartButton }) {
+function Cart({
+  cart,
+  setCart,
+  showCart,
+  setShowCart,
+  viewCartButton,
+  setViewCartButton,
+}) {
+  // Hide cart button
   function handleHideButton() {
     setShowCart(!showCart);
     setViewCartButton(!viewCartButton);
+  }
+
+  // Decrease button
+  function decreaseButton(catName) {
+    setCart((prevCart) => ({
+      ...prevCart,
+      [catName]: prevCart[catName] - 1,
+    }));
+  }
+
+  // Increase button
+  function increaseButton(catName) {
+    setCart((prevCart) => ({
+      ...prevCart,
+      [catName]: prevCart[catName] + 1,
+    }));
   }
 
   function calculateSubquantity(catName, index) {
@@ -21,6 +45,7 @@ function Cart({ showCart, setShowCart, viewCartButton, setViewCartButton }) {
     return total.toFixed(2);
   }
 
+  // Checkout button
   function handleCheckOutButton() {
     setShowCart(!showCart);
     setViewCartButton(!viewCartButton);
@@ -47,9 +72,19 @@ function Cart({ showCart, setShowCart, viewCartButton, setViewCartButton }) {
             <span>{cat.name}</span>
             <span className="item-price">{cat.price}</span>
             <span className="quantity-control">
-              <button className="button-decrease">-</button>
+              <button
+                className="button-decrease"
+                onClick={() => decreaseButton(cat.name)}
+              >
+                -
+              </button>
               <span>{cart[cat.name]}</span>
-              <button className="button-increase">+</button>
+              <button
+                className="button-increase"
+                onClick={() => increaseButton(cat.name)}
+              >
+                +
+              </button>
               {calculateSubquantity(cat.name, index)}
             </span>
           </li>
