@@ -49,6 +49,7 @@ function App() {
         <Cart
           cart={cart}
           setCart={setCart}
+          initialCart={initialCart}
           showCart={showCart}
           setShowCart={setShowCart}
           viewCartButton={viewCartButton}

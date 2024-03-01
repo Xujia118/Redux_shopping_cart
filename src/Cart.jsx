@@ -1,9 +1,10 @@
 import React from "react";
-import { cats, initialCart } from "./data";
+import { cats } from "./data";
 
 function Cart({
   cart,
   setCart,
+  initialCart,
   showCart,
   setShowCart,
   viewCartButton,
@@ -41,7 +42,7 @@ function Cart({
 
   function calculateTotalPrice() {
     let total = 0;
-    cats.forEach((cat, index) => {
+    cats.forEach((cat) => {
       total += cart[cat.name] * cat.price;
     });
     return total.toFixed(2);
@@ -51,7 +52,7 @@ function Cart({
   function handleCheckOutButton() {
     setShowCart(!showCart);
     setViewCartButton(!viewCartButton);
-    // TODO: clear the cart and ready the bill
+    setCart(initialCart);
   }
 
   return (
