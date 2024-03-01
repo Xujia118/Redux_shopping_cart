@@ -1,18 +1,16 @@
 import React from "react";
-import { cats, cart } from "./data";
+import { cats } from "./data";
 
-function Product({ setTotalQuantity, showCart, setShowCart }) {
+function Product({ cart, setCart, totalQuantity, setTotalQuantity }) {
   function handleClick(catName) {
     // Add 1 to the quantity of the specific cat
-    cart[catName] += 1;
+    setCart((prevCart) => ({
+      ...prevCart,
+      [catName]: prevCart[catName] ? prevCart[catName] + 1 : 1,
+    }));
 
     // Update total quantity
-    const updatedTotalQuantity = Object.values(cart).reduce(
-      (acc, curr) => acc + curr,
-      0
-    );
-
-    setTotalQuantity(updatedTotalQuantity);
+    setTotalQuantity((prevTotal) => prevTotal + 1);
   }
 
   return (

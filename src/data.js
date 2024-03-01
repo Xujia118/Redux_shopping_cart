@@ -19,7 +19,7 @@ export const cats = [
   },
 ];
 
-export const cart = {
+export const initialCart = {
   "Persian Cats": 0,
   "Siamese Cats": 0,
   "Ragdoll Cats": 0,

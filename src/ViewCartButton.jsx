@@ -1,11 +1,11 @@
 import React from "react";
 
 function ViewCartButton({
-  totalQuantity,
   showCart,
   setShowCart,
   viewCartButton,
   setViewCartButton,
+  totalQuantity,
 }) {
   function handleShowCartButton() {
     setShowCart(!showCart);

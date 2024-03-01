@@ -1,5 +1,5 @@
 import React from "react";
-import { cats, cart } from "./data";
+import { cats, initialCart } from "./data";
 
 function Cart({ showCart, setShowCart, viewCartButton, setViewCartButton }) {
   function handleHideButton() {
