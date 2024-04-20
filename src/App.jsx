@@ -1,6 +1,5 @@
 import { useReducer } from "react";
 
-import { initialCart } from "./data";
 import reducer, { initialState } from "./reducer";
 import { ACTIONS } from "./constants";
 
@@ -21,16 +20,12 @@ function App() {
     dispatch({ type: actionType, payload: { catName } });
   }
 
-  function updateTotalQuantity() {
-    dispatch({ type: ACTIONS.UPDATE_TOTAL_QUANTITY });
-  }
-
   function onHideButton() {
     dispatch({ type: ACTIONS.TOGGLE_HIDE });
   }
 
   function checkout() {
-    dispatch({ type: ACTIONS.CHECKOUT })
+    dispatch({ type: ACTIONS.CHECKOUT });
   }
 
   return (
@@ -39,20 +34,15 @@ function App() {
         <h1>Catland</h1>
         <ViewCartButton
           viewCartButton={state.viewCartButton}
-          totalQuantity={state.totalQuantity}
           toggleViewCartButton={toggleViewCartButton}
         />
       </header>
       <main>
-        <Product
-          updateCart={updateCart}
-          updateTotalQuantity={updateTotalQuantity}
-        />
+        <Product cart={state.cart} updateCart={updateCart} />
         <Cart
           cart={state.cart}
           showCart={state.showCart}
           viewCartButton={state.viewCartButton}
-          totalQuantity={state.totalQuantity}
           updateCart={updateCart}
           hideButton={onHideButton}
           checkout={checkout}

@@ -1,29 +1,37 @@
-import { cats } from "./data";
+import {
+  cats,
+  calculateSubtotal,
+  calculateTotal,
+  getSubQuantity,
+  getTotalQuantity,
+} from "./data";
 
 import { ACTIONS } from "./constants";
 
-function Product({ updateCart, updateTotalQuantity }) {
-  
+function Product({ cart, updateCart }) {
   function handleClick(catName) {
     updateCart(ACTIONS.INCREMENT, catName);
-    updateTotalQuantity();
+    calculateTotal(cart);
   }
 
   return (
     <ul className="cats">
-      {cats.map((cat) => (
-        <li className="cat-product" key={cat.name}>
-          <h2 className="cat-name">{cat.name}</h2>
-          <img src={cat.image} alt={cat.detail} />
-          <button
-            className="button-add-to-cart"
-            type="button"
-            onClick={() => handleClick(cat.name)}
-          >
-            Add to Cart
-          </button>
-        </li>
-      ))}
+      {Object.keys(cats).map((catName) => {
+        const cat = cats[catName];
+        return (
+          <li className="cat-product" key={cat.name}>
+            <h2 className="cat-name">{cat.name}</h2>
+            <img src={cat.image} alt={cat.detail} />
+            <button
+              className="button-add-to-cart"
+              type="button"
+              onClick={() => handleClick(cat.name)}
+            >
+              Add to Cart
+            </button>
+          </li>
+        );
+      })}
     </ul>
   );
 }

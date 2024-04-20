@@ -1,30 +1,19 @@
 import React from "react";
-import { cats } from "./data";
+
+import {
+  cats,
+  calculateSubtotal,
+  calculateTotal,
+  getSubQuantity,
+  getTotalQuantity,
+} from "./data";
 
 import { ACTIONS } from "./constants";
 
-function Cart({
-  cart,
-  showCart,
-  totalQuantity,
-  hideButton,
-  updateCart,
-  checkout,
-}) {
+function Cart({ cart, showCart, hideButton, updateCart, checkout }) {
 
-  function calculateSubquantity(catName, index) {
-    const subquantity = cart[catName];
-    const price = cats[index].price;
-    return (subquantity * price).toFixed(2);
-  }
-
-  function calculateTotalPrice() {
-    let total = 0;
-    cats.forEach((cat) => {
-      total += cart[cat.name] * cat.price;
-    });
-    return total.toFixed(2);
-  }
+  const totalQuantity = getTotalQuantity(cart);
+  const totalPrice = calculateTotal(cart);
 
   return (
     <div className={`cart-container ${showCart ? "visible" : ""}`}>
@@ -42,35 +31,31 @@ function Cart({
       {totalQuantity ? (
         <>
           <ul className="cart">
-            {cats.map((cat, index) =>
-              cart[cat.name] ? (
-                <li className="item" key={cat.name}>
+            {Object.keys(cats).map((catName) => 
+              cart[catName] ? (
+                <li className="item" key={catName}>
                   <img
                     className="item-image"
-                    src={cat.image}
-                    alt={cat.detail}
+                    src={cats[catName].image}
+                    alt={cats[catName].detail}
                   />
-                  <span>{cat.name}</span>
-                  <span className="item-price">{cat.price}</span>
+                  <span>{cats[catName].name}</span>
+                  <span className="item-price">{cats[catName].price}</span>
                   <span className="quantity-control">
                     <button
                       className="button-decrease"
-                      onClick={() =>
-                        updateCart(ACTIONS.DECREMENT, cat.name)
-                      }
+                      onClick={() => updateCart(ACTIONS.DECREMENT, catName)}
                     >
                       -
                     </button>
-                    <span>{cart[cat.name]}</span>
+                    <span>{cart[catName]}</span>
                     <button
                       className="button-increase"
-                      onClick={() =>
-                        updateCart(ACTIONS.INCREMENT, cat.name)
-                      }
+                      onClick={() => updateCart(ACTIONS.INCREMENT, catName)}
                     >
                       +
                     </button>
-                    {calculateSubquantity(cat.name, index)}
+                    {getSubQuantity(cart, catName)}
                   </span>
                 </li>
               ) : (
@@ -80,7 +65,7 @@ function Cart({
           </ul>
           <hr />
           <div className="cart-bottom">
-            <span className="total">Total: {calculateTotalPrice()}</span>
+            <span className="total">Total: {totalPrice}</span>
             <button
               className="button-checkout"
               data-target="product"

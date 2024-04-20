@@ -1,20 +1,15 @@
-import { initialCart } from "./data";
 import { ACTIONS } from "./constants";
 
 export const initialState = {
-  cart: initialCart,
+  cart: {},
   showCart: false,
   viewCartButton: true,
-  totalQuantity: 0,
 };
 
 function reducer(state, action) {
+  const { catName } = action.payload || {};
+
   switch (action.type) {
-    case ACTIONS.UPDATE_TOTAL_QUANTITY:
-      return {
-        ...state,
-        totalQuantity: state.totalQuantity + 1,
-      };
     case ACTIONS.TOGGLE_CART:
       return {
         ...state,
@@ -26,16 +21,25 @@ function reducer(state, action) {
         showCart: !state.showCart,
         viewCartButton: !state.viewCartButton,
       };
-    case ACTIONS.UPDATE_CART:
-      const { catName } = action.payload;
-      const incrementAmount = action.type === "increment" ? 1 : -1;
+
+    case ACTIONS.DECREMENT:
       return {
         ...state,
         cart: {
           ...state.cart,
-          [catName]: (state.cart[catName] || 0) + incrementAmount,
+          [catName]: (state.cart[catName] || 0) - 1,
         },
       };
+
+    case ACTIONS.INCREMENT:
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          [catName]: (state.cart[catName] || 0) + 1,
+        },
+      };
+
     case ACTIONS.TOGGLE_HIDE:
       return {
         ...state,
