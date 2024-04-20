@@ -21,18 +21,6 @@ export const cats = {
 
 const cart = {};
 
-// addToCart("Persian Cats", 1);
-// addToCart("Siamese Cats", 2);
-// addToCart("Ragdoll Cats", 3);
-
-// function testCats() {
-//   Object.keys(cats).map((cat) => {
-//     console.log(cart[cat]);
-//   });
-// }
-
-// testCats();
-
 export function getCatInfo(catName) {
   return cats[catName];
 }

@@ -51,7 +51,7 @@ function reducer(state, action) {
         ...state,
         showCart: !state.showCart,
         viewCartButton: !state.viewCartButton,
-        cart: initialCart,
+        cart: {},
       };
     default:
       return state;
