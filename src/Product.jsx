@@ -1,16 +1,14 @@
-import React from "react";
 import { cats } from "./data";
+import { ACTIONS } from "./constants";
 
-function Product({ setCart, setTotalQuantity }) {
+function Product({ dispatch }) {
   function handleClick(catName) {
-    // Add 1 to the quantity of the specific cat
-    setCart((prevCart) => ({
-      ...prevCart,
-      [catName]: prevCart[catName] ? prevCart[catName] + 1 : 1,
-    }));
+    dispatch({
+      type: ACTIONS.UPDATE_CART,
+      payload: { ...state.cats, [catName]: cats[catName] + 1 },
+    });
 
-    // Update total quantity
-    setTotalQuantity((prevTotal) => prevTotal + 1);
+    dispatch({ type: ACTIONS.UPDATE_TOTAL_QUANTITY });
   }
 
   return (

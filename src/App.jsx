@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useReducer} from "react";
 
 import { initialCart } from "./data";
+import reducer, { initialState } from "./reducer";
+import { ACTIONS } from "./constants";
 
 import ViewCartButton from "./ViewCartButton";
 import Product from "./Product";
@@ -9,50 +11,50 @@ import Cart from "./Cart";
 import "./App.css";
 
 function App() {
-  // Cart state
-  const [cart, setCart] = useState(initialCart);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  // Button states
-  const [showCart, setShowCart] = useState(false);
-  const [viewCartButton, setViewCartButton] = useState(true);
+  function toggleViewCartButton() {
+    dispatch({ type: ACTIONS.TOGGLE_VIEW_CART_BUTTON })
+  }
 
-  // Get total quantity, needed to render cart view button
-  const [totalQuantity, setTotalQuantity] = useState(0);
 
   useEffect(() => {
     function calculateTotalQuantity() {
-      return Object.values(cart).reduce((acc, cur) => acc + cur, 0);
+      return Object.values(state.cart).reduce((acc, cur) => acc + cur, 0);
     }
 
-    setTotalQuantity(calculateTotalQuantity());
-  }, [cart]);
+    dispatch({
+      type: ACTIONS.UPDATE_TOTAL_QUANTITY,
+      payload: calculateTotalQuantity(),
+    });
+  }, [state.cart]);
+
 
   return (
     <>
-      <header>
+      <header> 
         <h1>Catland</h1>
         <ViewCartButton
-          showCart={showCart}
-          setShowCart={setShowCart}
-          viewCartButton={viewCartButton}
-          setViewCartButton={setViewCartButton}
-          totalQuantity={totalQuantity}
+          viewCartButton={state.viewCartButton}
+          totalQuantity={state.totalQuantity}
+          toggleViewCartButton={toggleViewCartButton}
         />
       </header>
       <main>
         <Product
-          setCart={setCart}
-          setTotalQuantity={setTotalQuantity}
+          dispatch={dispatch}
         />
         <Cart
-          cart={cart}
-          setCart={setCart}
+          cart={state.cart}
+          setCart={() => dispatch({ type: ACTIONS.UPDATE_CART })}
           initialCart={initialCart}
-          showCart={showCart}
-          setShowCart={setShowCart}
-          viewCartButton={viewCartButton}
-          setViewCartButton={setViewCartButton}
-          totalQuantity={totalQuantity}
+          showCart={state.showCart}
+          setShowCart={() => dispatch({ type: ACTIONS.TOGGLE_CART })}
+          viewCartButton={state.viewCartButton}
+          setViewCartButton={() =>
+            dispatch({ type: ACTIONS.TOGGLE_VIEW_CART_BUTTON })
+          }
+          totalQuantity={state.totalQuantity}
         />
       </main>
     </>
