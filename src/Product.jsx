@@ -1,8 +1,11 @@
 import { cats } from "./data";
 
+import { ACTIONS } from "./constants";
+
 function Product({ updateCart, updateTotalQuantity }) {
+  
   function handleClick(catName) {
-    updateCart(catName);
+    updateCart(ACTIONS.INCREMENT, catName);
     updateTotalQuantity();
   }
 

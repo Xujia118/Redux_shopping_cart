@@ -1,6 +1,6 @@
-import { useEffect, useReducer } from "react";
+import { useReducer } from "react";
 
-import { cats, initialCart } from "./data";
+import { initialCart } from "./data";
 import reducer, { initialState } from "./reducer";
 import { ACTIONS } from "./constants";
 
@@ -17,20 +17,21 @@ function App() {
     dispatch({ type: ACTIONS.TOGGLE_VIEW_CART_BUTTON });
   }
 
-  function updateCart(catName) {
-    dispatch({ type: ACTIONS.UPDATE_CART, payload: { catName } });
+  function updateCart(actionType, catName) {
+    dispatch({ type: actionType, payload: { catName } });
   }
 
   function updateTotalQuantity() {
     dispatch({ type: ACTIONS.UPDATE_TOTAL_QUANTITY });
   }
 
-  useEffect(() => {
-    function calculateTotalQuantity() {
-      return Object.values(state.cart).reduce((acc, cur) => acc + cur, 0);
-    }
+  function onHideButton() {
+    dispatch({ type: ACTIONS.TOGGLE_HIDE });
+  }
 
-  }, [state.cart]);
+  function checkout() {
+    dispatch({ type: ACTIONS.CHECKOUT })
+  }
 
   return (
     <>
@@ -49,15 +50,12 @@ function App() {
         />
         <Cart
           cart={state.cart}
-          setCart={() => dispatch({ type: ACTIONS.UPDATE_CART })}
-          initialCart={initialCart}
           showCart={state.showCart}
-          setShowCart={() => dispatch({ type: ACTIONS.TOGGLE_CART })}
           viewCartButton={state.viewCartButton}
-          setViewCartButton={() =>
-            dispatch({ type: ACTIONS.TOGGLE_VIEW_CART_BUTTON })
-          }
           totalQuantity={state.totalQuantity}
+          updateCart={updateCart}
+          hideButton={onHideButton}
+          checkout={checkout}
         />
       </main>
     </>

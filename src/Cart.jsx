@@ -1,37 +1,16 @@
 import React from "react";
 import { cats } from "./data";
 
+import { ACTIONS } from "./constants";
+
 function Cart({
   cart,
-  setCart,
-  initialCart,
   showCart,
-  setShowCart,
-  viewCartButton,
-  setViewCartButton,
   totalQuantity,
+  hideButton,
+  updateCart,
+  checkout,
 }) {
-  // Hide cart button
-  function handleHideButton() {
-    setShowCart(!showCart);
-    setViewCartButton(!viewCartButton);
-  }
-
-  // Decrease button
-  function decreaseButton(catName) {
-    setCart((prevCart) => ({
-      ...prevCart,
-      [catName]: prevCart[catName] - 1,
-    }));
-  }
-
-  // Increase button
-  function increaseButton(catName) {
-    setCart((prevCart) => ({
-      ...prevCart,
-      [catName]: prevCart[catName] + 1,
-    }));
-  }
 
   function calculateSubquantity(catName, index) {
     const subquantity = cart[catName];
@@ -47,20 +26,13 @@ function Cart({
     return total.toFixed(2);
   }
 
-  // Checkout button
-  function handleCheckOutButton() {
-    setShowCart(!showCart);
-    setViewCartButton(!viewCartButton);
-    setCart(initialCart);
-  }
-
   return (
     <div className={`cart-container ${showCart ? "visible" : ""}`}>
       <div className="cart-top">
         <button
           className="button-hide-cart"
           data-target="product"
-          onClick={handleHideButton}
+          onClick={hideButton}
         >
           Hide Cart
         </button>
@@ -83,14 +55,18 @@ function Cart({
                   <span className="quantity-control">
                     <button
                       className="button-decrease"
-                      onClick={() => decreaseButton(cat.name)}
+                      onClick={() =>
+                        updateCart(ACTIONS.DECREMENT, cat.name)
+                      }
                     >
                       -
                     </button>
                     <span>{cart[cat.name]}</span>
                     <button
                       className="button-increase"
-                      onClick={() => increaseButton(cat.name)}
+                      onClick={() =>
+                        updateCart(ACTIONS.INCREMENT, cat.name)
+                      }
                     >
                       +
                     </button>
@@ -108,7 +84,7 @@ function Cart({
             <button
               className="button-checkout"
               data-target="product"
-              onClick={handleCheckOutButton}
+              onClick={checkout}
             >
               Check Out
             </button>

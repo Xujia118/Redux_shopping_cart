@@ -28,15 +28,29 @@ function reducer(state, action) {
       };
     case ACTIONS.UPDATE_CART:
       const { catName } = action.payload;
+      const incrementAmount = action.type === "increment" ? 1 : -1;
       return {
         ...state,
         cart: {
           ...state.cart,
-          [catName]: state.cart[catName] ? state.cart[catName] + 1 : 1,
+          [catName]: (state.cart[catName] || 0) + incrementAmount,
         },
       };
+    case ACTIONS.TOGGLE_HIDE:
+      return {
+        ...state,
+        showCart: !state.showCart,
+        viewCartButton: !state.viewCartButton,
+      };
+    case ACTIONS.CHECKOUT:
+      return {
+        ...state,
+        showCart: !state.showCart,
+        viewCartButton: !state.viewCartButton,
+        cart: initialCart,
+      };
     default:
-      state;
+      return state;
   }
 }
 
