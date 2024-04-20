@@ -1,14 +1,9 @@
 import { cats } from "./data";
-import { ACTIONS } from "./constants";
 
-function Product({ dispatch }) {
+function Product({ updateCart, updateTotalQuantity }) {
   function handleClick(catName) {
-    dispatch({
-      type: ACTIONS.UPDATE_CART,
-      payload: { ...state.cats, [catName]: cats[catName] + 1 },
-    });
-
-    dispatch({ type: ACTIONS.UPDATE_TOTAL_QUANTITY });
+    updateCart(catName);
+    updateTotalQuantity();
   }
 
   return (

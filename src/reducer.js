@@ -13,7 +13,7 @@ function reducer(state, action) {
     case ACTIONS.UPDATE_TOTAL_QUANTITY:
       return {
         ...state,
-        totalQuantity: action.payload,
+        totalQuantity: state.totalQuantity + 1,
       };
     case ACTIONS.TOGGLE_CART:
       return {
@@ -27,9 +27,13 @@ function reducer(state, action) {
         viewCartButton: !state.viewCartButton,
       };
     case ACTIONS.UPDATE_CART:
+      const { catName } = action.payload;
       return {
         ...state,
-        cart: action.payload,
+        cart: {
+          ...state.cart,
+          [catName]: state.cart[catName] ? state.cart[catName] + 1 : 1,
+        },
       };
     default:
       state;

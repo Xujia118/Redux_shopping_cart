@@ -1,6 +1,6 @@
-import { useEffect, useReducer} from "react";
+import { useEffect, useReducer } from "react";
 
-import { initialCart } from "./data";
+import { cats, initialCart } from "./data";
 import reducer, { initialState } from "./reducer";
 import { ACTIONS } from "./constants";
 
@@ -14,25 +14,27 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   function toggleViewCartButton() {
-    dispatch({ type: ACTIONS.TOGGLE_VIEW_CART_BUTTON })
+    dispatch({ type: ACTIONS.TOGGLE_VIEW_CART_BUTTON });
   }
 
+  function updateCart(catName) {
+    dispatch({ type: ACTIONS.UPDATE_CART, payload: { catName } });
+  }
+
+  function updateTotalQuantity() {
+    dispatch({ type: ACTIONS.UPDATE_TOTAL_QUANTITY });
+  }
 
   useEffect(() => {
     function calculateTotalQuantity() {
       return Object.values(state.cart).reduce((acc, cur) => acc + cur, 0);
     }
 
-    dispatch({
-      type: ACTIONS.UPDATE_TOTAL_QUANTITY,
-      payload: calculateTotalQuantity(),
-    });
   }, [state.cart]);
-
 
   return (
     <>
-      <header> 
+      <header>
         <h1>Catland</h1>
         <ViewCartButton
           viewCartButton={state.viewCartButton}
@@ -42,7 +44,8 @@ function App() {
       </header>
       <main>
         <Product
-          dispatch={dispatch}
+          updateCart={updateCart}
+          updateTotalQuantity={updateTotalQuantity}
         />
         <Cart
           cart={state.cart}
