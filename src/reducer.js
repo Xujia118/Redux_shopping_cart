@@ -21,7 +21,6 @@ function reducer(state, action) {
         showCart: !state.showCart,
         viewCartButton: !state.viewCartButton,
       };
-
     case ACTIONS.DECREMENT:
       return {
         ...state,
@@ -30,7 +29,6 @@ function reducer(state, action) {
           [catName]: (state.cart[catName] || 0) - 1,
         },
       };
-
     case ACTIONS.INCREMENT:
       return {
         ...state,
@@ -39,7 +37,6 @@ function reducer(state, action) {
           [catName]: (state.cart[catName] || 0) + 1,
         },
       };
-
     case ACTIONS.TOGGLE_HIDE:
       return {
         ...state,

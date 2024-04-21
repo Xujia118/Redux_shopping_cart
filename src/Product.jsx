@@ -1,9 +1,6 @@
 import {
   cats,
-  calculateSubtotal,
   calculateTotal,
-  getSubQuantity,
-  getTotalQuantity,
 } from "./data";
 
 import { ACTIONS } from "./constants";
@@ -16,7 +13,7 @@ function Product({ cart, updateCart }) {
 
   return (
     <ul className="cats">
-      {Object.keys(cats).map((catName) => {
+      {Object.keys(cats).map((catName) => { // Return inside, so {}. Without return, use ()
         const cat = cats[catName];
         return (
           <li className="cat-product" key={cat.name}>

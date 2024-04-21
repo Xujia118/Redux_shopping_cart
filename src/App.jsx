@@ -43,9 +43,8 @@ function App() {
         <Cart
           cart={state.cart}
           showCart={state.showCart}
-          viewCartButton={state.viewCartButton}
-          updateCart={updateCart}
           hideButton={onHideButton}
+          updateCart={updateCart}
           checkout={checkout}
         />
       </main>
