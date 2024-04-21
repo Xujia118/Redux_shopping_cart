@@ -4,14 +4,12 @@ import {
   cats,
   calculateSubtotal,
   calculateTotal,
-  getSubQuantity,
   getTotalQuantity,
 } from "./data";
 
 import { ACTIONS } from "./constants";
 
 function Cart({ cart, showCart, hideButton, updateCart, checkout }) {
-
   const totalQuantity = getTotalQuantity(cart);
   const totalPrice = calculateTotal(cart);
 
@@ -31,7 +29,7 @@ function Cart({ cart, showCart, hideButton, updateCart, checkout }) {
       {totalQuantity ? (
         <>
           <ul className="cart">
-            {Object.keys(cats).map((catName) => 
+            {Object.keys(cats).map((catName) =>
               cart[catName] ? (
                 <li className="item" key={catName}>
                   <img
@@ -55,7 +53,9 @@ function Cart({ cart, showCart, hideButton, updateCart, checkout }) {
                     >
                       +
                     </button>
-                    {getSubQuantity(cart, catName)}
+                  </span>
+                  <span className="subtotal">
+                    {calculateSubtotal(cart, catName)}
                   </span>
                 </li>
               ) : (

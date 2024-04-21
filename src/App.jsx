@@ -33,6 +33,7 @@ function App() {
       <header>
         <h1>Catland</h1>
         <ViewCartButton
+          cart={state.cart}
           viewCartButton={state.viewCartButton}
           toggleViewCartButton={toggleViewCartButton}
         />

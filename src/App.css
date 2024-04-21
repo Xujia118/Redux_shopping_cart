@@ -160,6 +160,10 @@ header h1 {
     font-size: 1.6rem;
 }
 
+.subtotal {
+    font-weight: bold;
+}
+
 .button-checkout {
     border: none;
     border-radius: 5px;

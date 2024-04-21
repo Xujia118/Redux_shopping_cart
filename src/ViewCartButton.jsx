@@ -1,8 +1,12 @@
+import { getTotalQuantity } from "./data";
+
 function ViewCartButton({
+  cart,
   viewCartButton,
-  totalQuantity,
   toggleViewCartButton
 }) {
+
+  const totalQuantity = getTotalQuantity(cart)
   
   return (
     <div className="view-cart-button-container">
