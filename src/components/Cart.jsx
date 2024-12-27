@@ -1,13 +1,22 @@
+import { useDispatch, useSelector } from "react-redux";
+import {
+  decrement,
+  increment,
+  checkout,
+  toggleCart,
+} from "./cartSlice";
 import {
   cats,
   calculateSubtotal,
   calculateTotal,
   getTotalQuantity,
-} from "./data";
+} from "../data";
 
-import { ACTIONS } from "./constants";
+function Cart() {
+  const cart = useSelector((state) => state.cart.cart);
+  const showCart = useSelector(state => state.cart.showCart);
+  const dispatch = useDispatch();
 
-function Cart({ cart, showCart, hideButton, updateCart, checkout }) {
   const totalQuantity = getTotalQuantity(cart);
   const totalPrice = calculateTotal(cart);
 
@@ -17,7 +26,7 @@ function Cart({ cart, showCart, hideButton, updateCart, checkout }) {
         <button
           className="button-hide-cart"
           data-target="product"
-          onClick={hideButton}
+          onClick={() => dispatch(toggleCart())}
         >
           Hide Cart
         </button>
@@ -40,14 +49,14 @@ function Cart({ cart, showCart, hideButton, updateCart, checkout }) {
                   <span className="quantity-control">
                     <button
                       className="button-decrease"
-                      onClick={() => updateCart(ACTIONS.DECREMENT, catName)}
+                      onClick={() => dispatch(decrement(cats[catName].name))}
                     >
                       -
                     </button>
                     <span>{cart[catName]}</span>
                     <button
                       className="button-increase"
-                      onClick={() => updateCart(ACTIONS.INCREMENT, catName)}
+                      onClick={() => dispatch(increment(cats[catName].name))}
                     >
                       +
                     </button>
@@ -67,7 +76,7 @@ function Cart({ cart, showCart, hideButton, updateCart, checkout }) {
             <button
               className="button-checkout"
               data-target="product"
-              onClick={checkout}
+              onClick={() => dispatch(checkout())}
             >
               Check Out
             </button>

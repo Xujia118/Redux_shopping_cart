@@ -1,19 +1,20 @@
-import {
-  cats,
-  calculateTotal,
-} from "./data";
+import { useDispatch, useSelector } from "react-redux";
+import { increment } from "./cartSlice";
+import { cats, calculateTotal } from "../data";
 
-import { ACTIONS } from "./constants";
+function Product() {
+  const cart = useSelector((state) => state.cart.cart);
+  const dispatch = useDispatch();
 
-function Product({ cart, updateCart }) {
   function handleClick(catName) {
-    updateCart(ACTIONS.INCREMENT, catName);
+    dispatch(increment(catName));
     calculateTotal(cart);
   }
 
   return (
     <ul className="cats">
-      {Object.keys(cats).map((catName) => { // Return inside, so {}. Without return, use ()
+      {Object.keys(cats).map((catName) => {
+        // Return inside, so {}. Without return, use ()
         const cat = cats[catName];
         return (
           <li className="cat-product" key={cat.name}>
