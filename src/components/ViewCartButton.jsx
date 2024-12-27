@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { toggleViewCartButton } from "./cartSlice";
+import { toggleCart } from "./cartSlice";
 import { getTotalQuantity } from "../data";
 
 function ViewCartButton() {
@@ -8,18 +8,14 @@ function ViewCartButton() {
   const dispatch = useDispatch();
 
   const totalQuantity = getTotalQuantity(cart);
-
-  const handleClick = () => {
-    dispatch(toggleViewCartButton());
-  };
-
+  
   return (
     <>
       <h1>Catland</h1>
       <div className="view-cart-button-container">
         <button
           className={`button-view-cart ${viewCartButton ? "" : "invisible"} `}
-          onClick={handleClick}
+          onClick={() => dispatch(toggleCart())}
         >
           View Cart {totalQuantity || 0}
         </button>

@@ -29,10 +29,6 @@ const cartSlice = createSlice({
       state.showCart = false;
       state.viewCartButton = true;
     },
-    toggleViewCartButton: (state) => {
-      state.showCart = !state.showCart;
-      state.viewCartButton = !state.viewCartButton;
-    },
     toggleCart: (state) => {
       state.showCart = !state.showCart;
       state.viewCartButton = !state.viewCartButton;
@@ -44,7 +40,6 @@ export const {
   decrement,
   increment,
   checkout,
-  toggleViewCartButton,
   toggleCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;
